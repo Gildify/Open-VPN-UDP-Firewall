@@ -27,8 +27,7 @@ iptables -t mangle -A PREROUTING -i lo -j ACCEPT
 iptables -t mangle -A PREROUTING -p icmp --icmp-type 8 -m hashlimit --hashlimit-upto 2/sec --hashlimit-burst 2 --hashlimit-mode srcip --hashlimit-srcmask 32 --hashlimit-name accept-icmp -j ACCEPT
 
 # Accept matching control hard reset
-iptables -t mangle -A PREROUTING -m bpf --bytecode "21,48 0 0 0,84 0 0 240,21 17 0 96,48 0 0 0,84 0 0 240,21 0 14 64,48 0 0 9,21 0 12 17,40 0 0 6,69 10 0 8191,177 0 0 0,72 0 0 2,21 0 7 1194,72 0 0 4,21 0 5 62,80 0 0 8,21 0 3 56,64 0 0 17,21 0 1 1,6 0 0 262144,6 0 0 0
-" -m limit --limit 5/sec -m conntrack --ctstate NEW -j ACCEPT
+iptables -t mangle -A PREROUTING -m bpf --bytecode "21,48 0 0 0,84 0 0 240,21 17 0 96,48 0 0 0,84 0 0 240,21 0 14 64,48 0 0 9,21 0 12 17,40 0 0 6,69 10 0 8191,177 0 0 0,72 0 0 2,21 0 7 1194,72 0 0 4,21 0 5 62,80 0 0 8,21 0 3 56,64 0 0 17,21 0 1 1,6 0 0 262144,6 0 0 0" -m limit --limit 5/sec -m conntrack --ctstate NEW -j ACCEPT
 
 # Accept related and established
 iptables -t mangle -A PREROUTING -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
